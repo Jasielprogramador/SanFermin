@@ -3,6 +3,7 @@
 -- Host: localhost    Database: sanfermin1
 -- ------------------------------------------------------
 -- Server version	5.5.44-0ubuntu0.14.04.1
+
 USE sanfermin;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -20,9 +21,6 @@ USE sanfermin;
 -- Table structure for table `Botika`
 --
 
--- Para borrar una tabla
-
--- Botika Unique es para decir que los valores no se pueden repetir
 DROP TABLE IF EXISTS `Botika`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -30,7 +28,7 @@ CREATE TABLE `Botika` (
   `izena` varchar(45) NOT NULL,
   PRIMARY KEY (`izena`),
   UNIQUE KEY `izena_UNIQUE` (`izena`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +37,7 @@ CREATE TABLE `Botika` (
 
 LOCK TABLES `Botika` WRITE;
 /*!40000 ALTER TABLE `Botika` DISABLE KEYS */;
-INSERT INTO `Botika` VALUES ('omeoprazol'),('Risperdal'),('Viagra');
+INSERT INTO `Botika` VALUES ('omeoprazol');
 /*!40000 ALTER TABLE `Botika` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -47,17 +45,15 @@ UNLOCK TABLES;
 -- Table structure for table `Bozkaketa`
 --
 
-
--- BOZKATU TAULA
-DROP TABLE IF EXISTS `Bozkatu`;
+DROP TABLE IF EXISTS `Bozkaketa`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Bozkatu` (
+CREATE TABLE `Bozkaketa` (
   `noiz` date NOT NULL,
-  KEY `data` (`noiz`),
-  `nork` varchar(45) NOT NULL,
-  `nori` varchar(45) NOT NULL,
-  PRIMARY KEY (`nori`,`nork`,`data`)
+  `identifikatzaileEmalea` int(11) NOT NULL,
+  `identifikatzaileJasotzailea` int(11) NOT NULL,
+  PRIMARY KEY (`identifikatzaileEmalea`,`identifikatzaileJasotzailea`,`noiz`),
+  KEY `gan2` (`identifikatzaileJasotzailea`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -67,24 +63,22 @@ CREATE TABLE `Bozkatu` (
 
 LOCK TABLES `Bozkaketa` WRITE;
 /*!40000 ALTER TABLE `Bozkaketa` DISABLE KEYS */;
-INSERT INTO `Bozkaketa` VALUES (1,2,2015-01-01),(2,1,2015-01-01),(3,2,2015-01-01),(4,3,2015-01-01),(5,4,2015-01-01);
+INSERT INTO `Bozkaketa` VALUES (5,1,2013-12-21);
 /*!40000 ALTER TABLE `Bozkaketa` ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 --
 -- Table structure for table `Entzierroa`
 --
--- ENTZIERROA TAULA
+
 DROP TABLE IF EXISTS `Entzierroa`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Entzierroa` (
   `noiz` date NOT NULL,
   `distantzia` int(11) NOT NULL,
-  `identifikatzailea` int(11) NOT NULL,
-  `helbidea` varchar(45) NOT NULL,
-  KEY `data` (`noiz`),
-  KEY `identifikatzailea` (`identifikatzailea`)
+  PRIMARY KEY (`noiz`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -94,7 +88,7 @@ CREATE TABLE `Entzierroa` (
 
 LOCK TABLES `Entzierroa` WRITE;
 /*!40000 ALTER TABLE `Entzierroa` DISABLE KEYS */;
-INSERT INTO `Entzierroa` VALUES ('2013-12-21',12,1),('2013-12-22',14,2),('2013-12-23',15,1),('2015-02-22',14,1);
+INSERT INTO `Entzierroa` VALUES ('2013-12-21',12);
 /*!40000 ALTER TABLE `Entzierroa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,14 +101,9 @@ DROP TABLE IF EXISTS `Ganadutegia`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Ganadutegia` (
   `idGanadutegia` int(11) NOT NULL AUTO_INCREMENT,
-  `izena` varchar(45) NOT NULL,
-  `dniArduraduna` varchar(45) NOT NULL,
-  `telefonoa` int(11) NOT NULL,
   `helbidea` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idGanadutegia`),
-  UNIQUE KEY `idGanadutegia_UNIQUE` (`idGanadutegia`),
-  UNIQUE KEY `dniArduraduna_UNIQUE` (`dniArduraduna`),
-  KEY `dniArduraduna_idx` (`dniArduraduna`)
+  UNIQUE KEY `idGanadutegia_UNIQUE` (`idGanadutegia`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -124,87 +113,10 @@ CREATE TABLE `Ganadutegia` (
 
 LOCK TABLES `Ganadutegia` WRITE;
 /*!40000 ALTER TABLE `Ganadutegia` DISABLE KEYS */;
-INSERT INTO `Ganadutegia` VALUES (1,'Alcurrucen','16090608S',789456123,'Madrid'),(2,'Cebada Gago','16095509V',654789213,'Sevilla'),(3,'Dolores  Aguirre Ybarra','11111111A',852417936,'Bilbao'),(4,'Jandilla','22222222B',951268743,'Donostia'),(5,'Fuente ymbro','33333333C',268475391,'San Sebastian'),(7,'anerenganadutegia','55555555E',55555,'ane helbidea');
+INSERT INTO `Ganadutegia` VALUES (1,'Alcurrucen');
 /*!40000 ALTER TABLE `Ganadutegia` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `Hartu`
---
-
-DROP TABLE IF EXISTS `Hartu`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Hartu` (
-  `izena` varchar(45) NOT NULL,
-  `animaliKodea` int(11) NOT NULL,
-  `noiz` date NOT NULL,
-  `zenbatDosis` int(11) NOT NULL,
-  PRIMARY KEY (`izena`,`animaliKodea`,`noiz`),
-  KEY `kodea1` (`animaliKodea`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Hartu`
---
-
-LOCK TABLES `Hartu` WRITE;
-/*!40000 ALTER TABLE `Hartu` DISABLE KEYS */;
-INSERT INTO `Hartu` VALUES ('omeoprazol',1,'2015-01-10',12),('omeoprazol',3,'2013-09-22',500),('omeoprazol',15,'2015-01-01',12),('Risperdal',1,'2015-01-01',12);
-/*!40000 ALTER TABLE `Hartu` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Inskribatu`
---
-
-DROP TABLE IF EXISTS `Inskribatu`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Inskribatu` (
-  `noiz` date NOT NULL,
-  `animaliKodea` int(11) NOT NULL,
-  `data` date NOT NULL,
-  `parteHartu` enum('Bai','Ez') NOT NULL DEFAULT 'Ez',
-  PRIMARY KEY (`noiz`,`animaliKodea`),
-  KEY `anikod` (`animaliKodea`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Inskribatu`
---
-
-LOCK TABLES `Inskribatu` WRITE;
-/*!40000 ALTER TABLE `Inskribatu` DISABLE KEYS */;
-INSERT INTO `Inskribatu` VALUES ('2013-12-21',1,'2012-12-10','Bai'),('2013-12-21',2,'2012-12-10','Bai'),('2013-12-21',3,'2012-12-10','Bai'),('2015-02-22',1,'2015-01-01','Bai'),('2015-02-22',2,'2015-01-01','Bai'),('2015-02-22',3,'2015-01-01','Bai'),('2015-02-22',14,'2015-01-01','Bai');
-/*!40000 ALTER TABLE `Inskribatu` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Jaiak`
---
-
-DROP TABLE IF EXISTS `Jaiak`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Jaiak` (
-  `animaliKodea` int(11) NOT NULL,
-  `noiz` date NOT NULL,
-  PRIMARY KEY (`animaliKodea`),
-  UNIQUE KEY `animaliKodea_UNIQUE` (`animaliKodea`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Jaiak`
---
-
-LOCK TABLES `Jaiak` WRITE;
-/*!40000 ALTER TABLE `Jaiak` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Jaiak` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Joalduna`
@@ -246,9 +158,9 @@ DROP TABLE IF EXISTS `Ordezkatu`;
 CREATE TABLE `Ordezkatu` (
   `animaliOrdezkatzaile` int(11) NOT NULL,
   `animaliOrdezkatua` int(11) NOT NULL,
-  `noiz` date NOT NULL,
-  PRIMARY KEY (`animaliOrdezkatua`,`noiz`),
-  KEY `kod1` (`animaliOrdezkatzaile`)
+  PRIMARY KEY (`animaliOrdezkatua`),
+  KEY `kod1` (`animaliOrdezkatzaile`),
+  KEY `kod2` (`animaliOrdezkatzaile`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -258,61 +170,10 @@ CREATE TABLE `Ordezkatu` (
 
 LOCK TABLES `Ordezkatu` WRITE;
 /*!40000 ALTER TABLE `Ordezkatu` DISABLE KEYS */;
-INSERT INTO `Ordezkatu` VALUES (14,3,'2015-02-22');
+INSERT INTO `Ordezkatu` VALUES (14,3);
 /*!40000 ALTER TABLE `Ordezkatu` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `Pertsona`
---
-
-DROP TABLE IF EXISTS `Pertsona`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Pertsona` (
-  `dni` varchar(9) NOT NULL,
-  `pasahitza` varchar(40) NOT NULL,
-  `izena` varchar(45) NOT NULL,
-  `mota` enum('Arduraduna','Administratzailea') NOT NULL,
-  PRIMARY KEY (`dni`),
-  UNIQUE KEY `dni_UNIQUE` (`dni`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Pertsona`
---
-
-LOCK TABLES `Pertsona` WRITE;
-/*!40000 ALTER TABLE `Pertsona` DISABLE KEYS */;
-INSERT INTO `Pertsona` VALUES ('11111111A','f204e5a184eba8064551cc958136b606f3b90d4e','aitor','Administratzailea'),('12345','8eec95fa6fe7bc6070a3ab44c7527bee1b0bea0a','user1','Arduraduna'),('16090608S','bc9a5f7860d21399d6a73f3361a3b3ea8228e06d','mikel','Arduraduna'),('16095509V','ae12fdc297f34a34af4c0d8dccf44ad8f471d355','jorge','Arduraduna'),('22222222B','fece77fcc065d42d9b7ecc37a0b76f127360cdf2','jon','Arduraduna'),('33333333C','260178de6e8aafb92079c4a7dd99d59c3609b8cc','juanan','Arduraduna'),('44444444D','937fbb7274e4b50907c9329e60b2bfdb5fd08cba','pepe','Arduraduna'),('45891099G','49f4111504f031b82958d92d1a2a4636c1de10fe','ieltzu','Administratzailea'),('55555555E','1ebf7989fdbc5cbccb58648ec433a420522ce7c0','ane','Arduraduna');
-/*!40000 ALTER TABLE `Pertsona` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `TelefonoZenbakia`
---
-
-DROP TABLE IF EXISTS `TelefonoZenbakia`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `TelefonoZenbakia` (
-  `idGanadutegia` int(11) NOT NULL,
-  `zenbakia` int(11) NOT NULL,
-  PRIMARY KEY (`idGanadutegia`),
-  UNIQUE KEY `idGanadutegia_UNIQUE` (`idGanadutegia`),
-  UNIQUE KEY `zenbakia_UNIQUE` (`zenbakia`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `TelefonoZenbakia`
---
-
-LOCK TABLES `TelefonoZenbakia` WRITE;
-/*!40000 ALTER TABLE `TelefonoZenbakia` DISABLE KEYS */;
-/*!40000 ALTER TABLE `TelefonoZenbakia` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Zezena`
